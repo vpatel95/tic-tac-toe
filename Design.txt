@@ -1,0 +1,20 @@
+Reflect on My Design
+
+1. What additional properties did you add to your model and why?
+
+- I've added score property on User's model in order to display the user rankings.
+- I've added current_player property on Game's model in order to know which player needs to make a move.
+- I've added board property on Game's model in order to keep track of the moves that have been made in the game.
+- I've added cancelled property on Game's model in order to determine is a game has been cancelled or not.
+- I've added email_reminder_sent property on Game's model in order to send (via cron) only once an email to a user that
+ has played in a cancelled game.
+- When a game ends and is not a draw I update User's score.
+
+2. What were some of the trade-offs or struggles you faced when implementing the new game logic?
+
+- In order to create a new game I needed to understand really good how Guess A Number worked, so
+  I created a frontend for Guess a Number and played a little bit with it until I had a clear imagine
+  what the game was doing.
+- That's why I implemented a frontend for Tic Tac Toe, because when you have all the parts, the interaction
+  between the frontend and the backend it's more pleasant and it makes you think more of edge cases.
+

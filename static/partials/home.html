@@ -1,0 +1,103 @@
+
+<div class="row">
+    <div class="col-sm-3 col-md-3">
+        <div ng-controller="ModalUserCtrl">
+            <button ng-click="createUser()" class="btn btn-primary">Create User</button>
+        </div>
+    </div>
+    <div class="col-sm-3 col-md-3 col-sm-offset-6 col-md-offset-6">
+        <div ng-controller="ModalNewGameCtrl" ng-if="!currentGameKey" class="pull-right">
+            <button ng-click="newGame()" class="btn btn-primary">New Game</button>
+        </div>
+
+        <div ng-if="currentGameKey" class="pull-right">
+            <button ng-click="getGame(currentGameKey)" class="btn btn-primary">Show Game</button>
+        </div>
+    </div>
+</div>
+
+<hr/>
+
+<div class="row">
+    <div class="col-sm-3 col-md-3" ng-controller="ModalUserGamesCtrl">
+        <button ng-click="getUserGames()" class="btn btn-primary">Get User Games</button>
+    </div>
+</div>
+
+<hr/>
+<div class="row">
+    <div class="col-sm-3 col-md-3" ng-controller="UserRankingsCtrl">
+        <button ng-click="getUserRankings()" class="btn btn-primary">Get User Rankings</button>
+        <ul ng-if="user_rankings.length">
+            <li ng-repeat="item in user_rankings">
+                <span> {{item.user_name}}</span><br/>
+                <span> {{item.score}}</span><br/>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<hr/>
+<div class="row">
+    <div class="col-lg-12">
+        <div id="messages" class="alert alert-{{alertStatus}}" ng-show="messages">
+            <span ng-bind="messages"></span>
+            <i class="dismiss-messages pull-right glyphicon glyphicon-remove" ng-click="messages = ''"
+               ng-show="messages"></i>
+        </div>
+    </div>
+</div>
+<div ng-if="table && table.urlsafe_game_key">
+
+    <div id="players">
+      <div id="X" ng-class="{ 'current-player': current_player=='PLAYER_X'}">Player X</div>
+      <div id="O" ng-class="{ 'current-player': current_player=='PLAYER_O'}">Player O</div>
+        <button ng-click="cancelGame(currentGameKey)" class="btn btn-warning">Cancel</button>
+        <button ng-click="gameHistory(currentGameKey)" class="btn btn-warning">Game History</button>
+        <ul ng-if="history.length">
+            <li ng-repeat="item in history">
+                <span> {{item.username}}</span><br/>
+                <span> {{item.position}}</span><br/>
+                <span> {{item.message}}</span><br/>
+            </li>
+        </ul>
+    </div>
+    <table>
+      <tr>
+        <td ng-click="makeMove(0)" id="0">
+            <div ng-class="getContent(0)"></div>
+        </td>
+        <td ng-click="makeMove(1)" id="1">
+            <div ng-class="getContent(1)"></div>
+        </td>
+        <td ng-click="makeMove(2)" id="2">
+            <div ng-class="getContent(2)"></div>
+        </td>
+      </tr>
+      <tr>
+        <td ng-click="makeMove(3)" id="3">
+            <div ng-class="getContent(3)"></div>
+        </td>
+        <td ng-click="makeMove(4)" id="4">
+            <div ng-class="getContent(4)"></div>
+        </td>
+        <td ng-click="makeMove(5)" id="5">
+            <div ng-class="getContent(5)"></div>
+        </td>
+      </tr>
+      <tr>
+        <td ng-click="makeMove(6)" id="6">
+            <div ng-class="getContent(6)"></div>
+        </td>
+        <td ng-click="makeMove(7)" id="7">
+            <div ng-class="getContent(7)"></div>
+        </td>
+        <td ng-click="makeMove(8)" id="8">
+            <div ng-class="getContent(8)"></div>
+        </td>
+      </tr>
+    </table>
+</div>
+
+
+

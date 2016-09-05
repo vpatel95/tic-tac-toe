@@ -203,9 +203,9 @@ class TicTacToeApi(remote.Service):
 
     def _we_have_a_winner(self, a, b, c, board):
 
-        if(str(board[a]) == str(board[b])) & (str(board[b]) == str(board[c])) &
-        ((str(board[a]) != str('')) | (str(board[b]) != str('')) |
-         (str(board[c]) != str(''))):
+        if(str(board[a]) == str(board[b])) &\
+	(str(board[b]) == str(board[c])) & ((str(board[a]) != str('')) |\
+	(str(board[b]) != str('')) | (str(board[c]) != str(''))):
             return True
 
         else:

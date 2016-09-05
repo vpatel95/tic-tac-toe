@@ -108,9 +108,11 @@ class TicTacToeApi(remote.Service):
         find_user = ndb.OR(
             Game.user1 == user.key,
             Game.user2 == user.key)
-        user_games = Game.query(find_user, Game.game_over == False, Game.cancelled == False)
+        user_games = Game.query(find_user, Game.game_over == False,
+                                Game.cancelled == False)
 
-        return GameForms(items=[user_game.to_form('') for user_game in user_games])
+        return GameForms(items=[user_game.to_form('')
+                         for user_game in user_games])
 
     @endpoints.method(response_message=UserRankingsForm,
                       path='user/ranking',
@@ -119,7 +121,8 @@ class TicTacToeApi(remote.Service):
     def get_user_rankings(self, request):
         """Return the current game state."""
         rankings = User.query().order(-User.score)
-        return UserRankingsForm(items=[ranking.to_form() for ranking in rankings])
+        return UserRankingsForm(items=[ranking.to_form()
+                                for ranking in rankings])
 
     @endpoints.method(request_message=GAME_REQUEST,
                       response_message=GameForm,
@@ -157,7 +160,9 @@ class TicTacToeApi(remote.Service):
         check_for_winner = self._check_for_winner(game.board)
 
         if check_for_winner:
-            self._cache_game_move(game, request.position, ' %s wins!' % game.current_player, request.urlsafe_game_key)
+            self._cache_game_move(game, request.position,
+                                  ' %s wins!' % game.current_player,
+                                  request.urlsafe_game_key)
             game.end_game()
             return game.to_form(' %s wins!' % game.current_player)
         else:
@@ -166,11 +171,13 @@ class TicTacToeApi(remote.Service):
                 if cell == '':
                     board_is_full = False
             if board_is_full:
-                self._cache_game_move(game, request.position, 'Table Full', request.urlsafe_game_key)
+                self._cache_game_move(game, request.position,
+                                      'Table Full', request.urlsafe_game_key)
                 game.end_game(True)
                 return game.to_form('Table full! It\'s a draw!')
             else:
-                self._cache_game_move(game, request.position, 'Next move', request.urlsafe_game_key)
+                self._cache_game_move(game, request.position, 'Next move',
+                                      request.urlsafe_game_key)
                 game.current_player = self._switch_player(game)
                 game.put()
                 return game.to_form('Next move')
@@ -182,8 +189,10 @@ class TicTacToeApi(remote.Service):
                       http_method='GET')
     def get_game_history(self, request):
         """Return the current game state."""
-        game_history = memcache.get(MEMCACHE_GAME_HISTORY_PREFIX + request.urlsafe_game_key) or []
-        return GameHistoryForms(items=[history.to_form() for history in game_history])
+        game_history = memcache.get(MEMCACHE_GAME_HISTORY_PREFIX +
+                                    request.urlsafe_game_key) or []
+        return GameHistoryForms(items=[history.to_form() for history in
+                                game_history])
 
     def _switch_player(self, game):
         if (game.current_player == 'PLAYER_X'):
@@ -194,8 +203,9 @@ class TicTacToeApi(remote.Service):
 
     def _we_have_a_winner(self, a, b, c, board):
 
-        if (str(board[a]) == str(board[b])) & (str(board[b]) == str(board[c])) & (
-                (str(board[a]) != str('')) | (str(board[b]) != str('')) | (str(board[c]) != str(''))):
+        if(str(board[a]) == str(board[b])) & (str(board[b]) == str(board[c])) &
+        ((str(board[a]) != str('')) | (str(board[b]) != str('')) |
+         (str(board[c]) != str(''))):
             return True
 
         else:
@@ -236,10 +246,13 @@ class TicTacToeApi(remote.Service):
     def _cache_game_move(game, position, message, urlsafe_game_key):
         """Populates memcache with the actual moves of the Game"""
         if not game.game_over:
-            history = memcache.get(MEMCACHE_GAME_HISTORY_PREFIX + urlsafe_game_key) or []
-            game_history = GameHistory(username=game.current_player, position=position, message=message)
+            history = memcache.get(MEMCACHE_GAME_HISTORY_PREFIX +
+                                   urlsafe_game_key) or []
+            game_history = GameHistory(username=game.current_player,
+                                       position=position, message=message)
             history.append(game_history)
-            memcache.set(MEMCACHE_GAME_HISTORY_PREFIX + urlsafe_game_key, history)
+            memcache.set(MEMCACHE_GAME_HISTORY_PREFIX + urlsafe_game_key,
+                         history)
 
 
 api = endpoints.api_server([TicTacToeApi])

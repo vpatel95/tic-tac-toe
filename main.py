@@ -16,8 +16,8 @@ class SendReminderEmail(webapp2.RequestHandler):
         and the reminder has not been already sent.
         Called every 5 minutes using a cron job"""
         app_id = app_identity.get_application_id()
-        cancelled_games = Game.query(Game.cancelled == True, 
-                          Game.email_reminder_sent == False)
+        cancelled_games = Game.query(Game.cancelled == True,
+                                     Game.email_reminder_sent == False)
 
         for game in cancelled_games:
             user11 = User.query(User.key == game.user1).get()
@@ -25,8 +25,8 @@ class SendReminderEmail(webapp2.RequestHandler):
 
             subject = 'This is a reminder!'
             body = 'Hello {}, your Tic Tac Toe game with {} has been '
-                    'cancelled. Please send a reply if you want to'
-                     ' continue this game!'
+            'cancelled. Please send a reply if you want to'
+            ' continue this game!'
             # This will send test emails, the arguments to send_mail are:
             # from, to, subject, body
             mail.send_mail('noreply@{}.appspotmail.com'.format(app_id),

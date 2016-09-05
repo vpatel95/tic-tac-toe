@@ -23,7 +23,8 @@ class GameHistory(ndb.Model):
     message = ndb.StringProperty(required=True)
 
     def to_form(self):
-        return GameHistoryForm(username=self.username, position=self.position, message=self.message)
+        return GameHistoryForm(username=self.username, position=self.position,
+                               message=self.message)
 
 
 class Game(ndb.Model):

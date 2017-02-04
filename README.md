@@ -152,8 +152,7 @@ When a game ends and it isn't a draw, the user that wins receives 1 point, the u
     - General purpose String container.
 
 ##References:
-
-[1](https://developers.google.com/appengine)
-[2](https://developers.google.com/appengine/docs/python/endpoints/endpoints_tool)
-[3](https://developer.apple.com/library/safari/samplecode/TicTacToe/Introduction/Intro.html)
+ 1. [https://developers.google.com/appengine](https://developers.google.com/appengine)
+ 2. [https://developers.google.com/appengine/docs/python/endpoints/endpoints_tool](https://developers.google.com/appengine/docs/python/endpoints/endpoints_tool)
+ 3. [https://developer.apple.com/library/safari/samplecode/TicTacToe/Introduction/Intro.html](https://developer.apple.com/library/safari/samplecode/TicTacToe/Introduction/Intro.html)
 
